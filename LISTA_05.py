@@ -20,21 +20,26 @@ def alg1():
     massaLb = 2.20462262 * massaKg
     limites = [161, 169, 176, 201]
     categorias = ["Super-médio", "Meio Pesado", "Cruzador", "Peso-Pesado"]
+    print("massa em lb: {}".format(massaLb))
 
     if massaLb < limites[0] :
         print("Categoria inferior a Super-médio")
         return
 
-    categoria = "Peso-Pesado"
+    categoria = categorias[3]
+
     for (i, limite) in enumerate(limites):
-        if i == 0 : continue
+        if i == 0 : continue #ja foi feita essa verificacao
         else:
+            #print("i:{}  limite:{}   categoria: {}".format(i, limites[i], categorias[i]))
             if massaLb <= limite :
-                categoria = categorias[i]
+                categoria = categorias[i-1]
                 break
 
-    print("Peso (kg): {:.2f}    Peso (lb): {:.2f}".format(massaKg, massaLb))
+    print("-"*10)
+    print("Peso (kg): {:.2f}    \nPeso (lb): {:.2f}".format(massaKg, massaLb))
     print("Categoria: {}".format(categoria))
+    print("-" * 10)
 
 
 def alg2():
@@ -251,7 +256,6 @@ def alg6():
     if x < 0 and y > 0 : print("Segundo quadrante")
     if x < 0 and y < 0 : print("Terceiro quadrante")
     if x > 0 and y < 0 : print("Quarto quadrante")
-
 
 
 
