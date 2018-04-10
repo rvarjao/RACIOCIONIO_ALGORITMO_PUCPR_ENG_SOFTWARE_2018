@@ -8,7 +8,6 @@ import datetime
 
 def alg2():
 
-
 #Desenvolva um algoritmo que leia as informações referentes a um conjunto de 50 pessoas.
 # Após a leitura e devidos cálculos exibir as respostas pedidas.
 # Dados de entrada:
@@ -21,8 +20,6 @@ def alg2():
 # • Quantidade de Mulheres entre 20 e 25 (inclusive) com peso abaixo de 60 kg;
 # • Quantidade de Homens com peso acima de 100 kg.
 # • Porcentagem de Pessoas com idade abaixo de 16 ou superior a 65 anos.
-
-
 
     global nPessoas
     nPessoas = 50

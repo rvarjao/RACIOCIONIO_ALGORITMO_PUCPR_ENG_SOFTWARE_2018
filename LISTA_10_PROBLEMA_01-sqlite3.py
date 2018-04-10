@@ -1,10 +1,13 @@
 #coding=utf-8
 #Problema 01 da lista 10, porem, feitos utilizando sqlite3
 
+import sqlite3
+import random
+import datetime
+
+
 def alg1():
-    import sqlite3
-    import random
-    import datetime
+
 
 #Desenvolva um algoritmo que leia as informações referentes a um conjunto de 50 pessoas.
 # Após a leitura e devidos cálculos exibir as respostas pedidas.
@@ -38,10 +41,8 @@ def alg1():
     # definindo um cursor
     global cursor
     cursor = conn.cursor ( )
-    # criando a tabela (schema)
-    cursor.execute ('''CREATE TABLE IF NOT EXISTS tbEntrevistados
-                 (anoNascimento int, sexo int, time int)''')
 
+    criaBancoDeDados()
 
     criar = raw_input("Popular banco de dados? (S/N): ").lower()
     if criar == "s":
@@ -121,11 +122,12 @@ def alg1():
     #fecha o banco de dados
     conn.close ( )
 
-def populaBancoDeDados():
-    import datetime
-    import sqlite3
-    import random
+def criaBancoDeDados():
+    # criando a tabela (schema)
+    cursor.execute ("CREATE TABLE IF NOT EXISTS tbEntrevistados (anoNascimento int, sexo int, time int)")
 
+
+def populaBancoDeDados():
     # gera do banco de dados
     anoAtual = datetime.datetime.now ( ).year
 
