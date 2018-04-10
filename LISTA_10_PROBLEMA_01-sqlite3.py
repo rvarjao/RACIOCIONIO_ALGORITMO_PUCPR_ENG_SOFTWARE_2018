@@ -24,14 +24,14 @@ def alg1():
 # • Porcentagem de entrevistados que não torcem por nenhum dos times relacionados.
 
     global nPessoas
-    nPessoas = 50
+    nPessoas = 51
 
     perguntas = []
     perguntas.append ("Quantidade de torcedores com mais de 70 anos")
     perguntas.append ("Quantidade de mulheres torcedoras do Atletico com menos de 25 anos (inclusive)")
     perguntas.append ("Quantidade de homens torcedores do Coritiba ou Parana")
     perguntas.append ("Quantidade de homens torcedores do Coritiba ou Parana com idade entre 20 e 40 (inclusive)")
-    perguntas.append ("Porcentagem de entrevistados que nao torcem por nenhum dos times relacionados")
+    perguntas.append ("Porcentagem de entrevistados que nao torcem por nenhum dos times relacionados (%)")
     perguntas = ajustaPerguntas(perguntas)
 
     # conectando ao banco de dados
@@ -51,58 +51,37 @@ def alg1():
     #fazer as pesquisas no banco de dados
 
     #salva os resultados das pesquisas
-    resultados = [0,0,0,0,0]
+    resultados = []
     queries = []
-
-    queryTotal = "SELECT COUNT(*) FROM tbEntrevistados"
-    cursor.execute(queryTotal)
-    nEntradas = cursor.fetchone()[0]
-    print("nEntradas: {}".format(nEntradas))
-
 
     # 01 - Quantidade de torcedores com mais de 70 anos;
     nascimento = datetime.datetime.now().year - 70
     queries.append("SELECT COUNT(*) FROM tbEntrevistados WHERE anoNascimento < {}".format(nascimento))
-    cursor.execute(queries[0])
-
-    #salva o resultado da pesquisa
-    resultados[0] = cursor.fetchone ()[0]
-    # print("01:  {}".format(resultados[0]))
-    #---
-
-    # • Sexo (1 - Masculino, 2 - Feminino);
-    # • Time de preferência (1- Atlético, 2 - Coritiba, 3 – Paraná, 4 – nenhum).
 
     # 02 - Quantidade de mulheres torcedoras do Atlético com menos de 25 anos (inclusive);
-    nascimento = datetime.datetime.now().year - 25
-    queries.append("SELECT COUNT(*) FROM tbEntrevistados WHERE anoNascimento <= {} AND sexo = 2".format(nascimento))
-    cursor.execute(queries[1])
-    resultados[1] = cursor.fetchone()[0]
-    # print("02:  {}".format(resultados[1]))
+    nascimento = datetime.datetime.now ( ).year - 25
+    queries.append ("SELECT COUNT(*) FROM tbEntrevistados WHERE anoNascimento <= {} AND sexo = 2".format (nascimento))
 
     # 03 - Quantidade de homens torcedores do Coritiba ou Paraná;
-    queries.append("SELECT COUNT(*) FROM tbEntrevistados WHERE sexo = 1 AND (time = 1 OR time = 2)")
-    cursor.execute(queries[len(queries) - 1])
-    resultados[2] = cursor.fetchone()[0]
-    # print("03:  {}".format(resultados[2]))
-
+    queries.append ("SELECT COUNT(*) FROM tbEntrevistados WHERE sexo = 1 AND (time = 1 OR time = 2)")
 
     # 04 - Quantidade de homens torcedores do Coritiba ou Paraná com idade entre 20 e 40 (inclusive);
-    nascInicio = datetime.datetime.now().year - 40
-    nascFim = datetime.datetime.now().year - 20
+    nascInicio = datetime.datetime.now ( ).year - 40
+    nascFim = datetime.datetime.now ( ).year - 20
 
-    queries.append("SELECT COUNT(*) FROM tbEntrevistados WHERE sexo = 1 AND (time = 1 OR time = 2) AND "
-                   "(anoNascimento > {} AND anoNascimento <= {})".format(nascInicio, nascFim))
-    cursor.execute(queries[len(queries) - 1])
-    resultados[3] = cursor.fetchone()[0]
-    # print("04:  {}".format(resultados[3]))
+    queries.append ("SELECT COUNT(*) FROM tbEntrevistados WHERE sexo = 1 AND (time = 1 OR time = 2) AND "
+                    "(anoNascimento > {} AND anoNascimento <= {})".format (nascInicio, nascFim))
 
     # 05 - Porcentagem de entrevistados que não torcem por nenhum dos times relacionados.
-    queries.append("SELECT COUNT(*) FROM tbEntrevistados WHERE time = 4")
-    cursor.execute(queries[len(queries) - 1])
-    resultados[4] = 100 * float(cursor.fetchone()[0])/float(nEntradas)
+    query = "SELECT 100*CAST(COUNT(time) AS DOUBLE)/ CAST((SELECT COUNT(time) FROM tbEntrevistados) AS DOUBLE) FROM tbEntrevistados WHERE (time = 4)"
+    queries.append(query)
+    #nao consegui formatar o resultado com duas casas decimais
 
-    # print("05:  {}".format(resultados[4]))
+    #salva os resultados da pesquisa
+    for query in queries:
+        cursor.execute(query)
+        resultado = cursor.fetchone()[0]
+        resultados.append(resultado)
 
     print("-"*100)
     for (i, pergunta) in enumerate(perguntas):
@@ -124,7 +103,24 @@ def alg1():
 
 def criaBancoDeDados():
     # criando a tabela (schema)
-    cursor.execute ("CREATE TABLE IF NOT EXISTS tbEntrevistados (anoNascimento int, sexo int, time int)")
+    global tabelaPrincipal
+    tabelaPrincipal = "tbEntrevistados"
+
+    camposNomes = ["anoNascimento", "sexo", "time"]
+    camposTipos = ["int", "int", "int"]
+
+    # criando a tabela (schema)
+    sqlCreateTable = "CREATE TABLE IF NOT EXISTS {} ".format(tabelaPrincipal)
+    for (i, _) in enumerate(camposNomes):
+        if i == 0: sqlCreateTable += "("
+
+        sqlCreateTable += camposNomes[i] + " " + camposTipos[i]
+
+        if i < len(camposNomes) - 1: sqlCreateTable += ","
+        else: sqlCreateTable += ")"
+
+    print("sqlCreateTable: {}".format(sqlCreateTable))
+    cursor.execute (sqlCreateTable)
 
 
 def populaBancoDeDados():

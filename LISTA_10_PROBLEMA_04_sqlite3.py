@@ -60,33 +60,20 @@ def alg4():
     # • Como qualifica sua saúde: 1 – ótima, 2 – boa, 3 – regular, 4 – ruim.
     # 01 - Quantas pessoas com menos de 20 anos nunca praticam esportes
     queries.append("SELECT COUNT(*) FROM {} WHERE (idade < 20) and (praticaEsportes = 3)".format(tabelaPrincipal))
-    cursor.execute(queries[len(queries) - 1])
-    resultados.append(cursor.fetchone()[0])
-    #----------------------
     # 02 - Qual a média das idades das pessoas que sempre praticam esporte
-    queries.append("SELECT AVG(idade) FROM {} WHERE (praticaEsportes = 1)".format(tabelaPrincipal))
-    cursor.execute(queries[len(queries) - 1])
-    resultados.append(cursor.fetchone()[0])
-    #----------------------
+    queries.append ("SELECT AVG(idade) FROM {} WHERE (praticaEsportes = 1)".format (tabelaPrincipal))
     # 03 - Qual media das idades das pessoas que tem saude regular ou ruim e que praticam esportes raramente ou nunca
     queries.append ("SELECT AVG(idade) FROM {} WHERE (saude = 3 or saude = 4) and (praticaEsportes = 2 or praticaEsportes = 3)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
     # 04 - Qual a idade da pessoa mais idosa que tem saude otima
     queries.append ("SELECT MAX(idade) FROM {} WHERE (saude = 1)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
     # 05 - Qual a idade da pessoa mais idosa que tem saude otima e que pratica esportes raramente
-    queries.append ("SELECT MAX(idade) FROM {} WHERE (saude = 1) and (praticaEsportes = 2)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
+    queries.append ("SELECT MAX(idade) FROM {} WHERE (saude = 1) and (praticaEsportes = 2)".format(tabelaPrincipal))
     # 06 - Qual a idade da pessoa mais nova que tem saude ruim
     queries.append ("SELECT MIN(idade) FROM {} WHERE (saude = 4)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
+
+    for query in queries:
+        cursor.execute(queries[len(queries) - 1])
+        resultados.append(cursor.fetchone()[0])
     #---------------------------------------
     #apresenta os resultados
     print("-"*100)
@@ -102,8 +89,6 @@ def alg4():
     conn.close ( )
     #fim
     #--------------------
-
-
 
 
 def criaBancoDeDados():

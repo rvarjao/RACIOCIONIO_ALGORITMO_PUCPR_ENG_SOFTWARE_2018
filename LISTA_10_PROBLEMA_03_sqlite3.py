@@ -62,29 +62,18 @@ def alg3():
 
     # 01 - Quantidade de pessoas solteiras ou divorciadas
     queries.append("SELECT COUNT(*) FROM {} WHERE estadoCivil = 1 or estadoCivil = 3".format(tabelaPrincipal))
-    cursor.execute(queries[len(queries) - 1])
-    resultados.append(cursor.fetchone()[0])
-    #----------------------
     # 02 - Quantidade de homens casados
     queries.append("SELECT COUNT(*) FROM {} WHERE sexo = 1 and estadoCivil = 2".format(tabelaPrincipal))
-    cursor.execute(queries[len(queries) - 1])
-    resultados.append(cursor.fetchone()[0])
-    #----------------------
     # 03 - Quantidade de homens casados com menos de 25 anos
     queries.append ("SELECT COUNT(*) FROM {} WHERE (sexo = 1) and (estadoCivil = 2) and (idade < 25)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
     # 04 - Quantidade de pessoas divorciadas com 40 anos ou mais
     queries.append ("SELECT COUNT(*) FROM {} WHERE (idade >= 40) and (estadoCivil = 3)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
     # 05 - Quantidade de mulheres entre 40 e 50 (inclusive) solteiras
     queries.append ("SELECT COUNT(*) FROM {} WHERE (sexo = 2) and (idade > 40 and idade <= 50) and (estadoCivil = 1)".format (tabelaPrincipal))
-    cursor.execute (queries[ len (queries) - 1 ])
-    resultados.append (cursor.fetchone ( )[ 0 ])
-    # ----------------------
+
+    for query in queries:
+        cursor.execute(query)
+        resultados.append(cursor.fetchone()[0])
 
     #---------------------------------------
     #apresenta os resultados
