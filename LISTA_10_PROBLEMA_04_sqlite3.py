@@ -2,6 +2,9 @@
 import sqlite3
 import random
 import datetime
+import FuncoesComuns as common
+
+
 
 
 def alg4():
@@ -31,7 +34,7 @@ def alg4():
     perguntas.append("Qual a idade da pessoa mais idosa que tem saude otima")
     perguntas.append("Qual a idade da pessoa mais idosa que tem saude otima e que pratica esportes raramente")
     perguntas.append("Qual a idade da pessoa mais nova que tem saude ruim")
-    perguntas = ajustaPerguntas(perguntas)
+    perguntas = common.ajustaPerguntas(perguntas)
 
 
     # conectando ao banco de dados
@@ -72,8 +75,9 @@ def alg4():
     queries.append ("SELECT MIN(idade) FROM {} WHERE (saude = 4)".format (tabelaPrincipal))
 
     for query in queries:
-        cursor.execute(queries[len(queries) - 1])
+        cursor.execute(query)
         resultados.append(cursor.fetchone()[0])
+
     #---------------------------------------
     #apresenta os resultados
     print("-"*100)
@@ -143,22 +147,7 @@ def imprimirTodoBancoDeDados():
         print(data)
 
 
-# ajusta as perguntas para ficar alinhada à direita
-def ajustaPerguntas(perguntas):
-    maxSize = 0
-    #verifica a pergunta mais comprida
-    for pergunta in perguntas:
-        size = len(pergunta)
-        if maxSize < size : maxSize = size
 
-    #coloca o numero de espacos à esquerda necessarios
-    for (i, pergunta) in enumerate(perguntas):
-        size = len(pergunta)
-        nEspacos = maxSize - size
-        strEspacos = " "*nEspacos
-        perguntas[i] = strEspacos + pergunta
-
-    return perguntas
 
 
 alg4()

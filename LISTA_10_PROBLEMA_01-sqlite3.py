@@ -4,10 +4,12 @@
 import sqlite3
 import random
 import datetime
+import numbers
+import FuncoesComuns as common
+
 
 
 def alg1():
-
 
 #Desenvolva um algoritmo que leia as informações referentes a um conjunto de 50 pessoas.
 # Após a leitura e devidos cálculos exibir as respostas pedidas.
@@ -27,12 +29,15 @@ def alg1():
     nPessoas = 51
 
     perguntas = []
-    perguntas.append ("Quantidade de torcedores com mais de 70 anos")
-    perguntas.append ("Quantidade de mulheres torcedoras do Atletico com menos de 25 anos (inclusive)")
-    perguntas.append ("Quantidade de homens torcedores do Coritiba ou Parana")
-    perguntas.append ("Quantidade de homens torcedores do Coritiba ou Parana com idade entre 20 e 40 (inclusive)")
-    perguntas.append ("Porcentagem de entrevistados que nao torcem por nenhum dos times relacionados (%)")
-    perguntas = ajustaPerguntas(perguntas)
+    perguntas.append("Quantidade de torcedores com mais de 70 anos")
+    perguntas.append("Quantidade de mulheres torcedoras do Atletico com menos de 25 anos (inclusive)")
+    perguntas.append("Quantidade de homens torcedores do Coritiba ou Parana")
+    perguntas.append("Quantidade de homens torcedores do Coritiba ou Parana com idade entre 20 e 40 (inclusive)")
+    perguntas.append("Porcentagem de entrevistados que nao torcem por nenhum dos times relacionados (%)")
+    # perguntas =  common.ajustaPerguntas(perguntas)
+
+    for pergunta in perguntas:
+        pergunta = pergunta.ljust(20, "x")
 
     # conectando ao banco de dados
     global conn
@@ -47,8 +52,6 @@ def alg1():
     criar = raw_input("Popular banco de dados? (S/N): ").lower()
     if criar == "s":
         populaBancoDeDados()
-
-    #fazer as pesquisas no banco de dados
 
     #salva os resultados das pesquisas
     resultados = []
@@ -75,7 +78,6 @@ def alg1():
     # 05 - Porcentagem de entrevistados que não torcem por nenhum dos times relacionados.
     query = "SELECT 100*CAST(COUNT(time) AS DOUBLE)/ CAST((SELECT COUNT(time) FROM tbEntrevistados) AS DOUBLE) FROM tbEntrevistados WHERE (time = 4)"
     queries.append(query)
-    #nao consegui formatar o resultado com duas casas decimais
 
     #salva os resultados da pesquisa
     for query in queries:
@@ -85,7 +87,9 @@ def alg1():
 
     print("-"*100)
     for (i, pergunta) in enumerate(perguntas):
-        print("{}: {}".format(pergunta, resultados[i]))
+        resultado = resultados[i]
+        if float(resultado).is_integer(): print("{}: {}".format(pergunta, resultados[i]))
+        else: print("{}: {:.2f}".format(pergunta, resultados[i]))
 
     print("-"*100)
 
@@ -132,34 +136,13 @@ def populaBancoDeDados():
     for i in range (0, nPessoas):
         # • Ano de Nascimento;
         ano = random.randrange (anoAtual - 100, anoAtual - 5)
-
         # • Sexo (1 - Masculino, 2 - Feminino);
         sexo = random.randrange (1, 3)
-
         # • Time de preferência (1- Atlético, 2 - Coritiba, 3 – Paraná, 4 – nenhum).
         time = random.randrange (1, 5)
-
         # Insert a row of data
         cursor.execute ("INSERT INTO tbEntrevistados VALUES ({},{},{})".format (ano, sexo, time))
     conn.commit ( )
-
-
-# ajusta as perguntas para ficar alinhada à direita
-def ajustaPerguntas(perguntas):
-    maxSize = 0
-    #verifica a pergunta mais comprida
-    for pergunta in perguntas:
-        size = len(pergunta)
-        if maxSize < size : maxSize = size
-
-    #coloca o numero de espacos à esquerda necessarios
-    for (i, pergunta) in enumerate(perguntas):
-        size = len(pergunta)
-        nEspacos = maxSize - size
-        strEspacos = " "*nEspacos
-        perguntas[i] = strEspacos + pergunta
-
-    return perguntas
 
 
 alg1()

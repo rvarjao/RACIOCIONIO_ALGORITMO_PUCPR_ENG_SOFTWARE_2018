@@ -2,10 +2,12 @@
 def alg1():
 #Escreva um algoritmo que imprima todas as possibilidades de que no lançamento de dois dados
 # tenhamos o valor 7 como resultado da soma dos valores de cada dado.
+    count = 0
     for i in range(1, 7):
         for j in range(1, 7):
-            if i + j == 7 :
-                print("dado 1: {}  dado 2: {}".format(i, j))
+            if i + j == 7:
+                count += 1
+                print("{}: dado 1: {}  dado 2: {}".format(count, i, j))
 
 def alg2():
 #Um número na forma n3 é igual a soma de n ímpares consecutivos.

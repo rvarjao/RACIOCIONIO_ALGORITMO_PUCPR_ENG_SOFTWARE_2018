@@ -36,14 +36,20 @@ def alg1():
         dado = {"ano" : ano, "sexo" : sexo, "time" : time}
         dados.append(dado)
 
-    resultados = [0,0,0,0,0]
 
-    # 01 - Quantidade de torcedores com mais de 70 anos;
-    # 02 - Quantidade de mulheres torcedoras do Atlético com menos de 25 anos (inclusive);
-    # 03 - Quantidade de homens torcedores do Coritiba ou Paraná;
-    # 04 - Quantidade de homens torcedores do Coritiba ou Paraná com idade entre 20 e 40 (inclusive);
-    # 05 - Porcentagem de entrevistados que não torcem por nenhum dos times relacionados.
 
+    perguntas = []
+    perguntas.append("01 - Quantidade de torcedores com mais de 70 anos")
+    perguntas.append("02 - Quantidade de mulheres torcedoras do Atlético com menos de 25 anos (inclusive)")
+    perguntas.append("03 - Quantidade de homens torcedores do Coritiba ou Parana")
+    perguntas.append("04 - Quantidade de homens torcedores do Coritiba ou Paraná com idade entre 20 e 40 (inclusive)")
+    perguntas.append("05 - Porcentagem de entrevistados que não torcem por nenhum dos times relacionados")
+    perguntas = ajustaPerguntas(perguntas)
+
+    resultados = []
+
+    for (i, _) in enumerate(perguntas):
+        resultados.append(0)
 
     for dado in dados:
         ano = dado["ano"]
@@ -70,17 +76,15 @@ def alg1():
         resultados[4] = 100 * float(resultados[4]) / float(len(dados))
 
     #RESULTADOS
-    print("                                             Quantidade de torcedores com mais de 70 anos = {}".format(resultados[0]))
-    print("           Quantidade de mulheres torcedoras do Atlético com menos de 25 anos (inclusive) = {}".format(resultados[1]))
-    print("                                    Quantidade de homens torcedores do Coritiba ou Paraná = {}".format(resultados[2]))
-    print("Quantidade de homens torcedores do Coritiba ou Paraná com idade entre 20 e 40 (inclusive) = {}".format(resultados[3]))
-    print("           Porcentagem de entrevistados que não torcem por nenhum dos times relacionados. = {:.1f} %".format(resultados[4]))
+    for (i, pergunta) in enumerate(perguntas):
+        print("{}: {:.1f}".format(pergunta, resultados[i]))
     print("-"*50)
 
     imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N) ").lower()
     if imprimirDados == "s":
         for dado in dados:
             print(dado)
+
 
 
 #-------------------------------------------
@@ -393,6 +397,22 @@ def alg4():
         for dado in dados:
             print(dado)
 
+
+def ajustaPerguntas(perguntas):
+    maxSize = 0
+    #verifica a pergunta mais comprida
+    for pergunta in perguntas:
+        size = len(pergunta)
+        if maxSize < size : maxSize = size
+
+    #coloca o numero de espacos à esquerda necessarios
+    for (i, pergunta) in enumerate(perguntas):
+        size = len(pergunta)
+        nEspacos = maxSize - size
+        strEspacos = " "*nEspacos
+        perguntas[i] = strEspacos + pergunta
+
+    return perguntas
 
 a = 1
 nProblemas = 4

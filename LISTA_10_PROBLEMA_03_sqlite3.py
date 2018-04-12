@@ -2,11 +2,9 @@
 import sqlite3
 import random
 import datetime
-
+import FuncoesComuns as common
 
 def alg3():
-
-
     # Desenvolva um algoritmo que leia as informações solicitadas a seguir referentes a um conjunto de 20 pessoas.
     # Após a leitura e devidos cálculos exibir as respostas pedidas.
     # Dados de entrada:
@@ -30,7 +28,7 @@ def alg3():
     perguntas.append("Quantidade de homens casados com menos de 25 anos")
     perguntas.append("Quantidade de pessoas divorciadas com 40 anos ou mais")
     perguntas.append("Quantidade de mulheres entre 40 e 50 (inclusive) solteiras")
-    perguntas = ajustaPerguntas(perguntas)
+    perguntas = common.ajustaPerguntas(perguntas)
 
 
     # conectando ao banco de dados
@@ -131,12 +129,10 @@ def populaBancoDeDados():
         idade = random.randrange (10, 100)
         # • Sexo (1 - Masculino, 2 - Feminino);
         sexo = random.randrange (1, 3)
-
         estadoCivil = random.randrange(1,4)
-
         # Insert a row of data
         cursor.execute ("INSERT INTO {} VALUES ({},{},{})".format (tabelaPrincipal, sexo, idade, estadoCivil))
-    conn.commit ( )
+    conn.commit ()
 
 
 def imprimirTodoBancoDeDados():
@@ -144,23 +140,6 @@ def imprimirTodoBancoDeDados():
     for data in cursor.execute (queryTotal):
         print(data)
 
-
-# ajusta as perguntas para ficar alinhada à direita
-def ajustaPerguntas(perguntas):
-    maxSize = 0
-    #verifica a pergunta mais comprida
-    for pergunta in perguntas:
-        size = len(pergunta)
-        if maxSize < size : maxSize = size
-
-    #coloca o numero de espacos à esquerda necessarios
-    for (i, pergunta) in enumerate(perguntas):
-        size = len(pergunta)
-        nEspacos = maxSize - size
-        strEspacos = " "*nEspacos
-        perguntas[i] = strEspacos + pergunta
-
-    return perguntas
 
 
 

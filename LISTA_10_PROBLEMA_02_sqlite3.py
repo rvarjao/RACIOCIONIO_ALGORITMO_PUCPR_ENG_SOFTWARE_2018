@@ -4,6 +4,7 @@
 import sqlite3
 import random
 import datetime
+import FuncoesComuns as common
 
 
 def alg2():
@@ -29,7 +30,7 @@ def alg2():
     perguntas.append("Quantidade de Mulheres entre 20 e 25 (inclusive) com peso abaixo de 60 kg")
     perguntas.append("Quantidade de Homens com peso acima de 100 kg")
     perguntas.append("Porcentagem de Pessoas com idade abaixo de 16 ou superior a 65 anos")
-    perguntas = ajustaPerguntas(perguntas)
+    perguntas = common.ajustaPerguntas(perguntas)
 
     # conectando ao banco de dados
     global conn
@@ -137,24 +138,6 @@ def criaBancoDeDados():
 
     print("sqlCreateTable: {}".format(sqlCreateTable))
     cursor.execute (sqlCreateTable)
-
-
-# ajusta as perguntas para ficar alinhada à direita
-def ajustaPerguntas(perguntas):
-    maxSize = 0
-    #verifica a pergunta mais comprida
-    for pergunta in perguntas:
-        size = len(pergunta)
-        if maxSize < size : maxSize = size
-
-    #coloca o numero de espacos à esquerda necessarios
-    for (i, pergunta) in enumerate(perguntas):
-        size = len(pergunta)
-        nEspacos = maxSize - size
-        strEspacos = " "*nEspacos
-        perguntas[i] = strEspacos + pergunta
-
-    return perguntas
 
 
 
