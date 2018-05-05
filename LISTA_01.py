@@ -8,11 +8,11 @@
 
 
 def alg1():
-    # Faca um algoritmo que leia um numero inteiro e escreva seu sucessor e seu antecessor
-    a = input('insira um numero: ')
-    print (a + 1)
+    #Faca um algoritmo que leia um numero inteiro e escreva seu sucessor e seu antecessor
+    a = int(input('insira um numero: '))
+    print(a)
+    print(a + 1)
     print(a - 1)
-    return;
 
 def alg2():
     # Escreva um algoritmo que leia o ano de nascimento de uma pessoa,
@@ -20,8 +20,9 @@ def alg2():
     import datetime
     now = datetime.datetime.now()
 
-    birthYear = input('ano de nascimento: ')
-    print("idade: ".format(now.year - birthYear))
+    birthYear = int(input('ano de nascimento: '))
+    idade = now.year - birthYear
+    print("idade: {}".format(idade))
     return
 
 
@@ -47,7 +48,7 @@ def alg5():
     # 5% de acrescimento em 3 parcelas,
     # preco de tabela em 2 parcelas
     # preco a vista com 5% de desconto
-    preco = input("preco do produto: R$ ")
+    preco = float(input("preco do produto: R$ "))
     aVista = preco * ( 1 - 0.05)
     emTresParcelas = preco * (1 + 0.05)
     emDuasParcelas = preco
@@ -84,8 +85,8 @@ def alg8():
     # pode ser feito como input
     # #n = input("termo: ")
     n = 15
-    a1 = input ('a1 = ')
-    r = input ('razao: ')
+    a1 = int(input ('a1 = '))
+    r = int(input ('razao: '))
     print("15o termo: {}".format(termoPA (a1, r, n)))
     return
 
@@ -99,8 +100,8 @@ def alg9():
     # #n = input("termo: ")
 
     n = 25
-    a1 = input('a1 = ')
-    q = input("razao = ")
+    a1 = int(input('a1 = '))
+    q = int(input("razao = "))
     print("25o termo :{}".format(termoPG(a1, q, n)))
 
 def termoPA(a1, r, n):
@@ -129,10 +130,9 @@ def alg10():
     #calculos da area do cilindro
     pi = 3.14159265359
     areaBase = float(pi * pow(r , 2))
-    areaTopo = areaBase
     l = float(2 * pi * r)
     areaLados = float(l * h)
-    areaTotal = areaBase + areaTopo + areaLados
+    areaTotal = areaBase + areaLados
 
     #calculos do volume de tinta
     volumeLataDeTinta = float(5)    #volume de cada lata de tinta
@@ -141,8 +141,8 @@ def alg10():
     litrosNecessarios = areaTotal / areaLitroDeTinta
 
     #latas de tinta
-    nLatas = math.ceil(litrosNecessarios / volumeLataDeTinta) #arredonda para cima o numero de latas necessarias
-
+    # arredonda para cima o numero de latas necessarias
+    nLatas = math.ceil(litrosNecessarios / volumeLataDeTinta)
     #custo
     valorLata = 50
     valorTotal = float(nLatas * valorLata)
@@ -154,15 +154,19 @@ def alg10():
     print ('Custo total: {:.2f}'.format(valorTotal))
 
 
+a = 1
+nProblemas = 10
 
-a = input ('Qual algoritmo voce deseja?: ')
-if (a == 1) : alg1()
-if (a == 2) : alg2()
-if (a == 3) : alg3()
-if (a == 4) : alg4()
-if (a == 5) : alg5()
-if (a == 6) : alg6()
-if (a == 7) : alg7()
-if (a == 8) : alg8()
-if (a == 9) : alg9()
-if (a == 10) : alg10()
+while 0 < a <= nProblemas:
+    print ("-" * 40)
+    a = int (input ('Qual algoritmo voce deseja?: '))
+    if (a == 1):   alg1 ( )
+    elif (a == 2): alg2 ( )
+    elif (a == 3): alg3 ( )
+    elif (a == 4): alg4 ( )
+    elif (a == 5): alg5 ( )
+    elif (a == 6): alg6 ( )
+    elif (a == 7): alg7 ( )
+    elif (a == 8): alg8 ( )
+    elif (a == 9): alg9 ( )
+    elif (a == 10): alg10 ( )
