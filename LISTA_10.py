@@ -80,7 +80,7 @@ def alg1():
         print("{}: {:.1f}".format(pergunta, resultados[i]))
     print("-"*50)
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N) ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N) ").lower()
     if imprimirDados == "s":
         for dado in dados:
             print(dado)
@@ -154,7 +154,7 @@ def alg2():
 
     print("-"*50)
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N) ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N) ").lower()
     if imprimirDados == "s":
         for dado in dados:
             print(dado)
@@ -232,7 +232,7 @@ def alg3():
 
     print("-"*50)
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N) ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N) ").lower()
     if imprimirDados == "s":
         for dado in dados:
             print(dado)
@@ -392,7 +392,7 @@ def alg4():
 
 
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N) ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N) ").lower()
     if imprimirDados == "s":
         for dado in dados:
             print(dado)

@@ -5,8 +5,6 @@ import datetime
 import FuncoesComuns as common
 
 
-
-
 def alg4():
 # Desenvolva um algoritmo que leia as informações solicitadas a seguir referentes a um conjunto de 30 pessoas.
 # Após a leitura e devidos cálculos exibir as respostas pedidas.
@@ -49,7 +47,7 @@ def alg4():
     criaBancoDeDados ( )
 
     # insere novos dados no banco se o usuario quiser
-    criar = raw_input ("Popular banco de dados? (S/N): ").lower ( )
+    criar = input ("Popular banco de dados? (S/N): ").lower ( )
     if criar == "s":
         populaBancoDeDados ( )
 
@@ -86,7 +84,7 @@ def alg4():
     print("-"*100)
     # ---------------------------------------
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N): ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N): ").lower()
     if imprimirDados == "s": imprimirTodoBancoDeDados()
 
     #fecha o banco de dados
@@ -145,8 +143,6 @@ def imprimirTodoBancoDeDados():
     queryTotal = "SELECT * FROM {} ORDER BY idade".format(tabelaPrincipal)
     for data in cursor.execute (queryTotal):
         print(data)
-
-
 
 
 

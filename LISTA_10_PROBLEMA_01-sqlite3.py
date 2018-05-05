@@ -49,7 +49,7 @@ def alg1():
 
     criaBancoDeDados()
 
-    criar = raw_input("Popular banco de dados? (S/N): ").lower()
+    criar = input("Popular banco de dados? (S/N): ").lower()
     if criar == "s":
         populaBancoDeDados()
 
@@ -93,7 +93,7 @@ def alg1():
 
     print("-"*100)
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N): ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N): ").lower()
     if imprimirDados == "s":
         queryTotal = "SELECT * FROM tbEntrevistados ORDER BY anoNascimento"
         for data in cursor.execute(queryTotal):

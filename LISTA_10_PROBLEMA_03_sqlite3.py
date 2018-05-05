@@ -44,7 +44,7 @@ def alg3():
 
 
     # insere novos dados no banco se o usuario quiser
-    criar = raw_input ("Popular banco de dados? (S/N): ").lower ( )
+    criar = input ("Popular banco de dados? (S/N): ").lower ( )
     if criar == "s":
         populaBancoDeDados ( )
 
@@ -81,7 +81,7 @@ def alg3():
     print("-"*100)
     # ---------------------------------------
 
-    imprimirDados = raw_input("Imprimir todo o banco de dados? (S/N): ").lower()
+    imprimirDados = input("Imprimir todo o banco de dados? (S/N): ").lower()
     if imprimirDados == "s": imprimirTodoBancoDeDados()
 
     #fecha o banco de dados
